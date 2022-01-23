@@ -10,10 +10,10 @@ doesFit(textString, fontSize, node){
     const h = node.offsetHeight;// 23
     const canvas = document.createElement('canvas');
     var context = canvas.getContext("2d");
-    context.font = `${size}px`;
+    context.font = `${fontSize}px`;
   const { width } = context.measureText(textStr);
 
-    if(width > w || size > h){
+    if(width > w || fontSize > h){
         return false;
     }
     return true;

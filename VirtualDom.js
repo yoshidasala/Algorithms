@@ -30,6 +30,23 @@ console.log(virtualize(element))
 
 function render(json) {
 
-  
+  if (typeof json === "string") return document.createTextNode(json)
+
+  const parent = document.createElement(json.type)
+  const { children, ...attr } = json.props
+
+  if (Array.isArray(children)) {
+    children.forEach((child)=> parent.append(render(child)))
+  } else {
+    parent.append(children)
+  }
+
+  for (const [name, value] of attr) {
+    const attr = name === "className" ? "class" : name
+    parent.setAttribute(attr,value)
+  }
+
+
+  return parent
 
 }
