@@ -1,21 +1,34 @@
 function memo(func, resolver) {
   const cache = new Map();
 
-  function memoizedFunc() {
-    const key = resolver
-      ? resolver.apply(this, arguments)
-      : Array.prototype.join.call(arguments, '_');
+  return function (...args) {
+    //if the resolver is undefined than we use teh resolve to create the key
+    const cacheKey = resolver ? resolver(...args) : args.join("");
 
-    if (!cache.has(key)) {
-      const res = func.apply(this, arguments);
-      cache.set(key, res);
+    let cachedKey = cache.get(cacheKey);
+
+    if (!cachedKey) {
+      //reusult of the args
+      const result = func.call(this, ...args);
+      cache.set(cacheKey, new Map([[this, result]]));
+      result
+
+      // cacheKey
+
+      return result;
     }
 
-    return cache.get(key);
-  }
+    if (cachedKey.has(this)) {
+      return cachedKey.get(this);
+    }
 
-  return memoizedFunc;
+    const result = func.call(this, ...args);
+    cachedKey.set(this, result);
+
+    return result;
+  };
 }
+
 
 const func = (arg1, arg2) => {
   return arg1 + arg2
@@ -23,10 +36,12 @@ const func = (arg1, arg2) => {
 
 const memoed = memo(func)
 
-// console.log(memoed(1, 2))
-// // 3, func is called
+console.log(memoed(1, 2))
+// 3, func is called
 
-// console.log(memoed(1, 2))
+console.log(memoed(1, 2,function (c) {
+  return `${this.a}_${this.b}_${c}`;
+}))
 // // 3 is returned right away without calling func
 
 console.log(memoed(1, 3))
