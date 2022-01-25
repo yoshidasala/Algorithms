@@ -78,3 +78,29 @@ for(let child of children){
 }
 return element;
 }
+
+
+///virtual dom 2
+
+function createElement(type, props, ...children) {
+  if(typeof type === "function"){
+    return type({children,...props})
+  }
+  const element = document.createElement(type);
+
+ for(let key in props){
+  const attr = key === "className" ? "class" : key
+  element.setAttribute(attr,props[key]);
+}
+
+ for(let child of children){
+  if(typeof child === 'string'){
+    element.append(document.createTextNode(child));
+  }
+  else{
+    element.append(child);
+  }
+}
+
+  return element
+}
