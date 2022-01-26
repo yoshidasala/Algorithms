@@ -16,12 +16,20 @@ const excludes = [
 ]
 
 function excludeItems(items, excludes) {
-  excludes.forEach(pair => {
+  excludes.forEach(pair => { //  {k: 'color', v: 'silver'},
 
-    items = items.filter(item => item[pair.k] !== item[pair.v] )
+    items = items.filter(item => { console.log(item[pair.k]) } )
   })
+
   return items
 }
+//pair ={k: 'color', v: 'silver'},
+//item = {color: 'red', type: 'tv', age: 18},
+// "red" !== "silver"
+// item[pair.k] == pair.v
+
+
+
 
 
 ///Map color: SET [siler,red,]

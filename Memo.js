@@ -1,48 +1,68 @@
-function memo(func, resolver) {
-  const cache = new Map();
+// function memo(func, resolver) {
+//   //   // your code here
+//     const cache = new Map();
 
-  return function (...args) {
-    //if the resolver is undefined than we use teh resolve to create the key
-    const cacheKey = resolver ? resolver(...args) : args.join("");
+  //   // If my cache key is in my cache, use that value
 
-    let cachedKey = cache.get(cacheKey);
+  //   return function() {
+  //     const cacheKey = resolver ?  resolver(...arguments) : Array.from(arguments).join(',');
 
-    if (!cachedKey) {
-      //reusult of the args
-      const result = func.call(this, ...args);
-      cache.set(cacheKey, new Map([[this, result]]));
-      result
+  //     if (cache.has(cacheKey)) {
+  //       console.log('cached');
+  //       return cache.get(cacheKey);
+  //     }
+  //     // Otherwise invoke the function and add it to my cache
+  //     const val = func.apply(this, arguments);
+  //     cache.set(cacheKey, val);
+  //     return val;
+  //   }
+  // }
 
-      // cacheKey
+  // With this context in mind, check test cases below.
+  function memo(func, resolver) {
+    // your code here
+    const cache = new Map();
 
-      return result;
+    // Map<cacheKey, Map<context, value>>
+    return function(...args) {
+      const cacheKey = resolver ?  resolver(...args) : args.join(',');
+      const contextMap = cache.get(cacheKey);
+
+      if (!contextMap) {
+        const value = func.apply(this, arguments);
+        cache.set(cacheKey, new Map([[ this, value ]]));
+        return value;
+      }
+
+      if (contextMap.has(this)) {
+        return contextMap.get(this);
+      }
+      const value = func.apply(this, arguments);
+      contextMap.set(this, value);
+      return value;
     }
-
-    if (cachedKey.has(this)) {
-      return cachedKey.get(this);
-    }
-
-    const result = func.call(this, ...args);
-    cachedKey.set(this, result);
-
-    return result;
-  };
-}
+  }
 
 
-const func = (arg1, arg2) => {
-  return arg1 + arg2
-}
+  const func = (arg1, arg2) => {
+    return arg1 + arg2
+  }
 
-const memoed = memo(func)
+  const memoed = memo(func)
 
-console.log(memoed(1, 2))
-// 3, func is called
+  console.log(memoed(1, 2))
+  // 3, func is called
 
-console.log(memoed(1, 2,function (c) {
-  return `${this.a}_${this.b}_${c}`;
-}))
-// // 3 is returned right away without calling func
+  console.log(memoed(1, 2))
+  // 3 is returned right away without calling func
 
-console.log(memoed(1, 3))
-// 4, new arguments, so func is called
+  console.log(memoed(1, 3))
+
+
+  /*
+  cache {
+    1_2 :  Map memoed(1, 2) : 3
+               : 9
+  }
+
+  */
