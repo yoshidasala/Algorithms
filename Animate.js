@@ -41,3 +41,25 @@ function animate(time) {
 }
 
 animate(el,time,disatnce)
+
+
+function moveDist(ms, dist) {
+  var element = document.getElementById("red");
+  var pos = 0;
+
+  // speed is in px per milisecond
+  var speed = dist / ms;
+
+  var anim = setInterval(animate, 1);
+
+  function animate() {
+    if (!start) start = Date.now()
+    let elasped = Date.now() - start
+    if (elapsed > time) {
+      clearTimeout(anim)
+    } else {
+      el.style.transform = `translateX(${elasped * speed}px)`
+    }
+
+  }
+}
