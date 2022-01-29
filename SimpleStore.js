@@ -25,6 +25,7 @@ class NodeStore {
     return !!this.get(node);
   }
 }
+
 // Array: O(1)
 class NodeStore {
   constructor() {
