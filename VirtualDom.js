@@ -41,7 +41,7 @@ function render(json) {
     parent.append(children)
   }
 
-  for (const [name, value] of attr) {
+  for (const [name, value] of Object.entries(attrs)) {
     const attr = name === "className" ? "class" : name
     parent.setAttribute(attr,value)
   }
