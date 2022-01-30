@@ -35,3 +35,33 @@ function doesFit(textStr, node, fontSize) {
 //   }
 //   return true;
 // }
+
+
+// function doesFit(textStr, node, fontSize) {
+//   // create another element with the same height and width
+//   const tmp = document.createElement('div');
+//   tmp.style.height = `${node.clientHeight}px`;
+//   tmp.style.width = `${node.clientWidth}px`;
+//   tmp.style.fontSize = `${fontSize}px`;
+//   tmp.style.visibility = "hidden";
+//   tmp.innerText = textStr;
+//   document.body.append(tmp);
+
+//   return tmp.scrollHeight === tmp.clientHeight && tmp.scrollWidth === tmp.clientWidth;
+// }
+
+
+// function getMaxFontSize(textStr, node) {
+//   let smallest = 1;
+//   let largest = node.clientHeight;
+//   while (smallest <= largest) {
+//       const mid = parseInt((smallest + largest) / 2);
+//       if (doesFit(textStr, node, mid)) {
+//           smallest = mid + 1;
+//       }
+//       else {
+//           largest = mid - 1;
+//       }
+//   }
+//   return largest;
+// }
