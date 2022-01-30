@@ -1,38 +1,37 @@
+function doesFit(textStr, node, fontSize) {
+  // create another element with the same height and width
+  const tmp = document.createElement("div");
+  tmp.style.height = `${node.clientHeight}px`;
+  tmp.style.width = `${node.clientWidth}px`;
+  tmp.style.fontSize = `${fontSize}px`;
+  tmp.innerText = textStr;
+  tmp.style.border = "thin solid black";
+  tmp.style.marginLeft = -(tmp.style.height + 10);
+  doesFit.ref.append(tmp);
 
+  console.log(
+    `scrollHeight: ${tmp.scrollHeight}, scrollWidth: ${tmp.scrollWidth}, clientHeight: ${tmp.clientHeight}, clientWidth: ${tmp.clientWidth}`
+  );
 
-
-
-
-
-
-doesFit(textString, fontSize, node){
-    const w = node.clientHeight; //614
-    const h = node.offsetHeight;// 23
-    const canvas = document.createElement('canvas');
-    var context = canvas.getContext("2d");
-  context.font = `${fontSize}px`;
-  //To set the height in the Canvas.
-  const { width } = context.measureText(textStr);
-
-    if(width > w || fontSize > h){
-        return false;
-    }
-    return true;
+  return (
+    tmp.scrollHeight === tmp.clientHeight && tmp.scrollWidth === tmp.clientWidth
+  );
 }
 
-// offset height instead of client height. when text spreads into padding, it's also considered an overflow
+// doesFit.ref = document.querySelector(".main");
 
-function getMaxFontSize(textStr, node){
-    let left = 1;
-    let right = node.offsetHeight;
-    while(left <= right){
-        const mid = parseInt((left+right)/2);
-        if(doesFit(textStr, node, mid)){
-            left = mid + 1;
-        }
-        else{
-            right = mid - 1;
-        }
-    }
-    return right;
-}
+// function doesFit_DC(textStr, node, fontSize) {
+//   const w = node.clientWidth;
+//   const h = node.clientHeight;
+//   const c = document.createElement("canvas");
+//   c.style.overflowY = node.style.overflowY;
+//   c.style.overflowX = node.style.overflowX;
+//   var ctx = c.getContext("2d");
+//   ctx.font = `${fontSize}px`;
+//   const { width } = ctx.measureText(textStr);
+//   console.log(width, w);
+//   if (width > w || fontSize*width > h)  {
+//     return false;
+//   }
+//   return true;
+// }

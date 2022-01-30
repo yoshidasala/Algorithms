@@ -58,3 +58,25 @@ console.log(excludeItems(items,excludes))
 
 //{color: 'red', type: 'tv', age: 18},
 //
+
+
+function excludeItems(items, excludes) {
+
+  Const map = new Map()
+
+   for(const {k,v} of excludes){
+      if(!map.has(k)){
+      map.set(k, new Set())
+      }
+      map.get(k).add(v)
+   }
+  
+return  items.filter((item) =>
+const keys = Object.keys(item);
+For (let i = 0; i < keys.length; ++i) {
+  If (!map.has(keys[i]) || !map.get(k).has(item[key]) {
+return true;
+}
+
+Object.keys(item).every((key)=> !map.has(k) ||!map.get(k).has(item.key)))
+}
