@@ -65,4 +65,8 @@
                : 9
   }
 
+  use a cache limit since you are memoizing functions you can only store
+  a limited amount beodre you run our of memory
+  we could use a weakMap to avoid memory leak
   */
+
