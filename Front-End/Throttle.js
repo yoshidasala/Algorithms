@@ -33,3 +33,41 @@ function throttle(func, wait) {
 }
 
 
+//leading and trailing
+function throttle(func, wait, option = { leading: true, trailing: true }) {
+
+let lastArgs;
+let timerId;
+let {leading,trailing} = option
+
+function invoke(){
+  func.apply(this,lastArgs)
+  lastArgs = undefined
+}
+
+function coolDown() {
+  timerId = setTimeout(()=>{
+    timerId = undefined
+    if(lastArgs && trailing){
+      invoke()
+      coolDown()
+    }
+  },wait)
+}
+
+function throttled(){
+  lastArgs = arguments
+
+  if (!timerId ){
+    if(leading){
+      invoke()
+    }
+
+    coolDown()
+  }
+
+}
+
+return throttled
+
+}
