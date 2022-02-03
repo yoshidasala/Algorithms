@@ -4,21 +4,23 @@ class Observable {
     this.setup = setup
   }
 
- subscribe(subscriber) {  // equivalent to fire
+ subscribe(subscriber) {  //  this is observer two
     // a wrapper function/ object
     // is used to share the closure of outer function and modify the logics
     const subscriberWrapper = {
-      unsubscribed: false,
+      unsubscribed: false,//true
       next(value) {
         if (this.unsubscribed) return
         // we are relying on the scope of subscriber
         if (typeof subscriber === "function") return subscriber(value);
-        return subscriber.next ? subscriber.next(value) : null
+        //if if a function than we can call subscriber(value ) insetad of subscriber.next(value)
+        // return subscriber.next(value)
+        return subscriber.next ? subscriber.next(value) : null //checking for the property because we need to check if the methods exisst on the called obj
       },
       error(value) {
         if (this.unsubscribed) return
         this.unsubscribe();
-        console.log(subscriber.error(value))
+
         return subscriber.error ? subscriber.error(value) : null;
       },
       complete() {
@@ -35,8 +37,6 @@ class Observable {
   }
 }
 
-
-
 const setup = (observer)=> {
   observer.next(1)
   observer.next(2)
@@ -47,8 +47,7 @@ const setup = (observer)=> {
   }, 100)
 }
 
-const observable = new Observable(setup)
-
+const observable = new Observable(setup) // the specific set up is stuck to this observable
 
 
 const observer = {
@@ -63,7 +62,13 @@ const observer = {
   }
 }
 
-const sub = observable.subscribe(observer)
+const observer2 = (value)=> console.log(value)
+
+
+const sub = observable.subscribe(observer2)
+
+const sub2 = observable.subscribe({})
+
 
 
 // console.log(sub)

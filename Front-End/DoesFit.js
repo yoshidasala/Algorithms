@@ -1,54 +1,32 @@
-function doesFit(textStr, node, fontSize) {
-  // create another element with the same height and width
-  const tmp = document.createElement("div");
-  tmp.style.height = `${node.clientHeight}px`;
-  tmp.style.width = `${node.clientWidth}px`;
-  tmp.style.fontSize = `${fontSize}px`;
-  tmp.innerText = textStr;
-  tmp.style.border = "thin solid black";
-  tmp.style.marginLeft = -(tmp.style.height + 10);
-  doesFit.ref.append(tmp);
+const contain = document.getElementById("rootA");
 
-  console.log(
-    `scrollHeight: ${tmp.scrollHeight}, scrollWidth: ${tmp.scrollWidth}, clientHeight: ${tmp.clientHeight}, clientWidth: ${tmp.clientWidth}`
-  );
+contain.style.width = "200px"
+contain.style.height = "200px"
+contain.style.border = "solid black"
 
-  return (
-    tmp.scrollHeight === tmp.clientHeight && tmp.scrollWidth === tmp.clientWidth
-  );
+const short = "hello"
+const long = "with you in mind. The process is quite simple. Choose the number of random paragraphs you'd like to see and click the button. Your chosen number of paragraphs will instantly appear.While it may not be obvious to everyone, there are a number of reasons creating random paragraphs can be useful. A few examples of how some people use this generator are listed in the following paragraphs."
+
+const shorttext = document.createElement("div")
+shorttext.innerText = short
+contain.append( shorttext )
+
+
+function DoesFit(textStr,node,fontSize){
+  const ele = document.createElement("div")
+   ele.style.height = `${node.clientHeight}px`;
+   ele.style.width = `${node.clientWidth}px`;
+    ele.style.border = 'solid black'
+    ele.style.fontSize = `${fontSize}px`;
+    // ele.style.visibility = "hidden";
+    ele.innerText = textStr;
+    document.body.append(ele);
+
+  return ele.scrollHeight === ele.clientHeight && ele.scrollWidth === ele.clientWidth;
+
 }
 
-// doesFit.ref = document.querySelector(".main");
-
-// function doesFit_DC(textStr, node, fontSize) {
-//   const w = node.clientWidth;
-//   const h = node.clientHeight;
-//   const c = document.createElement("canvas");
-//   c.style.overflowY = node.style.overflowY;
-//   c.style.overflowX = node.style.overflowX;
-//   var ctx = c.getContext("2d");
-//   ctx.font = `${fontSize}px`;
-//   const { width } = ctx.measureText(textStr);
-//   console.log(width, w);
-//   if (width > w || fontSize*width > h)  {
-//     return false;
-//   }
-//   return true;
-// }
-
-
-// function doesFit(textStr, node, fontSize) {
-//   // create another element with the same height and width
-//   const tmp = document.createElement('div');
-//   tmp.style.height = `${node.clientHeight}px`;
-//   tmp.style.width = `${node.clientWidth}px`;
-//   tmp.style.fontSize = `${fontSize}px`;
-//   tmp.style.visibility = "hidden";
-//   tmp.innerText = textStr;
-//   document.body.append(tmp);
-
-//   return tmp.scrollHeight === tmp.clientHeight && tmp.scrollWidth === tmp.clientWidth;
-// }
+console.log(DoesFit(short,contain,300))
 
 
 // function getMaxFontSize(textStr, node) {
