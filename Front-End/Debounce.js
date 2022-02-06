@@ -24,3 +24,6 @@ function debounce(func,delay,option = {trailing,leading}){
   }
   return debounced
 }
+
+
+console.log(debounce)

@@ -47,6 +47,9 @@ const sub3 = emitter.subscribe("event1", callback1)
 // sub2.release()
 
 
+const obj1 = { callback1 }
+const obj2 = { callback1 }
+console.log(Object.is(obj1,obj2))
 emitter.emit('event1', 1, 2);
 
 emitter
