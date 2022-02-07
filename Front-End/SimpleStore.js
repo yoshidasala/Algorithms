@@ -75,3 +75,22 @@ class NodeStore {
 const store = new NodeStore()
 
 store.set("hello",3)
+
+
+//this.key = 0_0_0
+/* {
+d1_d1_d1 = 3
+d2_d2_d2 = 6
+
+*/
+
+/*
+ d1: <div></div>
+ 0_0_0 = d1_d1_d1
+ d2: <div></div>
+ 0_0_0 = d2_d2_d2
+
+nodestore.set(d1,3)
+
+
+*/

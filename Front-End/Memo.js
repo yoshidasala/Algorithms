@@ -70,3 +70,29 @@
   we could use a weakMap to avoid memory leak
   */
 
+  /*We can use the concept of catching, how it works on devices.
+  We can fix the number of key value pairs stored in our map. We will fill it up to the capacity.
+  Once the capacity is full, we discard the oldest key - value and store the newest-- > like a queue.
+  */
+
+
+  function memo(func, resolver) {
+    const store = new Map();  // Map<keys: any>
+    const capacity = 10;
+    const keyArr = [];
+
+    return function (...args) {
+      const key = (resolver !== undefined) ? resolver.apply(this, args) : args.join("_");
+
+      if(!store.has(key)){
+        if(store.size > capacity){
+          const delKey = keyArr.shift();
+          store.delete(delKey);
+        }
+        keyArr.push(key);
+        const retVal = func.apply(this, args);
+        store.set(key, retVal);
+      }
+      return store.get(key);
+    }
+  }
