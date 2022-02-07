@@ -1,3 +1,10 @@
+/*
+Round 1: Given a string and a style array render HTML pretty much like a rich text editor.
+For example: 'Hello, world', [[0, 2, 'i'], [4, 9, 'b'], [7, 10, 'u']]
+Output: '<i>Hel</i>l<b>o, w<u>orl</u></b><u>d</u>
+*/
+
+
 function prettyHTML(string, styles) {
   styles.sort((first, second) => (first[0] > second[0] ? 1 : -1));
   const hash = new Map();
@@ -40,3 +47,5 @@ function prettyHTML(string, styles) {
   html += hash.get(arr.length).join("");
   return html;
 }
+
+console.log(prettyHTML('Hello, world',[[0, 2, 'i'], [4, 9, 'b'], [7, 10, 'u']]))

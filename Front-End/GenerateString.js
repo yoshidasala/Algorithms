@@ -7,43 +7,40 @@ should return a string - "1 2 foo 1 bar a s 1"
 
 */
 
-
 //"1 2 foo 1 bar a s 1"
 
 
-// function generate(...args) {
+function generate(...args) {
 
-//   let result = ""
+  let result = ""
 
-//   for (const arg of args) {
-//     if (typeof arg === 'string') {
-//       result += arg + " ";
-//     }
-//     else if (typeof arg === 'number') {
-//       result += toString(arg) + " ";
-//     }
-//     else if(typeof arg === 'object'){
-//       for (let key in arg) {
-//         if (Array.isArray(arg)) {
+  for (const arg of args) {
+    if (typeof arg === 'string') {
+      result += arg + " ";
+    }
+    else if (typeof arg === 'number') {
 
-//                 args.concat(...arg);
-//         } else if (arg.hasOwnProperty(key) && arg[key]) {
-//           result += key + " ";
-//         }
-//       }
-//     } else if (arg) {
+      result += arg.toString() + " ";
+    }
+    else if (typeof arg === 'object') {
+      if (Array.isArray(arg)) {
+        arg.forEach((value) => result += generate(value))
+      } else {
+        for (const key in arg) {
+          if (arg.hasOwnProperty(key) && arg[key]) {
+            result += key + " "
+          }
+        }
 
-//       result += "1 ";
-//     }
-//   }
-//   return result;
-// }
-
-
-
-
-
-console.log(generate(undefined, null, false, 1, 2, 0 ,"foo", true, )
+      }
+    }
+    else if (arg) {
+      result += "1 ";
+    }
+  }
+  return result;
+}
 
 
 
+console.log(generate(undefined,null, false, 1, 2, 0 ,"foo", true, {bar:true}, {temp:false},['a','s',1,null]))

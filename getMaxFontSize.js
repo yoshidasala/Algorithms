@@ -1,21 +1,3 @@
-function getMaxFontSize(textString, domNode) {
-  const containerWidth = domNode.scrollWidth;
-  const textElem = document.createElement('span');
-
-  textElem.textContent = textString;
-  textElem.style.visibility = 'hidden';
-  textElem.style.position = 'absolute';
-  textElem.style.fontSize = '1px';
-
-  document.body.append(textElem);
-
-  // getBoundingClientRect is used for a purpose of accuracy, since it return width with decimals
-  const fontSizeMultiplier = textElem.getBoundingClientRect().width;
-
-  textElem.remove();
-
-  return Math.floor(containerWidth / fontSizeMultiplier)
-}
 
 const target = document.getElementById('target');
 
@@ -41,3 +23,19 @@ function doesFit(textString, fontSize, domNode) {
 
   return isValid;
 }
+
+
+// function getMaxFontSize(textStr, node) {
+//   let smallest = 1;
+//   let largest = node.clientHeight;
+//   while (smallest <= largest) {
+//       const mid = parseInt((smallest + largest) / 2);
+//       if (doesFit(textStr, node, mid)) {
+//           smallest = mid + 1;
+//       }
+//       else {
+//           largest = mid - 1;
+//       }
+//   }
+//   return largest;
+// }

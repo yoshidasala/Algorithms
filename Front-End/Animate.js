@@ -1,4 +1,8 @@
-
+/*/Write a function that takes a DOM element and
+smoothly animates it from its current position to
+distance pixels to the right over duration
+milliseconds. Implement the following function,
+animate(el, milliseconds, distance) */
 
 function animate(el, time, distance) {
   let startTime = null;
